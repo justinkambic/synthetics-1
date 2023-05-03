@@ -353,7 +353,6 @@ export class SyntheticsGenerator extends JavaScriptLanguageGenerator {
    */
   generateFromSteps(steps: Steps): string {
     console.log('hi from generate steps');
-    return 'HEllo world';
     const text: string[] = [];
     if (this.isProject) {
       text.push(this.generateHeader());
