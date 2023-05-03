@@ -28,6 +28,13 @@ export declare type Step = {
     name?: string;
 };
 export declare type Steps = Step[];
+export declare type FrameDescription = {
+    pageAlias: string;
+    isMainFrame?: boolean;
+    url: string;
+    name?: string;
+    selectorsChain?: string[];
+};
 export declare type ActionInContext = {
     pageAlias: string;
     frameName?: string;
@@ -37,6 +44,9 @@ export declare type ActionInContext = {
     committed?: boolean;
     modified?: boolean;
     title?: string;
+    frame: FrameDescription;
+    isOpen?: boolean;
+    isSoftDeleted?: boolean;
 };
 export declare type Action = {
     name: string;
@@ -62,11 +72,19 @@ export declare type Signal = {
     downloadAlias?: string;
     dialogAlias?: string;
 };
+export declare function quote(text: string, char?: string): string;
+/**
+ * Generates an appropriate title string based on the action type/data.
+ * @param action Playwright action IR
+ * @returns title string
+ */
+export declare function actionTitle(action: Action): string;
 export declare class SyntheticsGenerator extends JavaScriptLanguageGenerator {
-    private isSuite;
-    private previousContext;
+    private isProject;
+    private previousContext?;
     private insideStep;
-    constructor(isSuite: boolean);
+    private varsToHoist;
+    constructor(isProject: boolean);
     /**
      * Generate code for an action.
      * @param actionInContext The action to create code for.
@@ -74,7 +92,7 @@ export declare class SyntheticsGenerator extends JavaScriptLanguageGenerator {
      */
     generateAction(actionInContext: ActionInContext): any;
     isNewStep(actioninContext: ActionInContext): boolean;
-    generateStepStart(name: any): any;
+    generateStepStart(name: string): any;
     generateStepEnd(): any;
     generateHeader(): any;
     generateFooter(): string;
@@ -87,12 +105,14 @@ export declare class SyntheticsGenerator extends JavaScriptLanguageGenerator {
      * @returns a list of the code strings outputted by the generator
      */
     generateFromSteps(steps: Steps): string;
+    generateHoistedVars(): any;
+    isVarHoisted(varName: string): boolean;
+    getDefaultOffset(): 0 | 2;
+    /**
+     * We need to hoist any page or popup alias that appears in more than one step.
+     * @param steps the step IR to evaluate
+     * @returns an array that contains the names of all variables that need to be hoisted
+     */
+    findVarsToHoist(steps: Steps): string[];
 }
-export declare function quote(text: string, char?: string): string;
-/**
- * Generates an appropriate title string based on the action type/data.
- * @param action Playwright action IR
- * @returns title string
- */
-export declare function actionTitle(action: Action): string;
 //# sourceMappingURL=javascript.d.ts.map
