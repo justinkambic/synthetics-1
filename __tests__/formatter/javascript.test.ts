@@ -210,4 +210,729 @@ describe('Synthetics JavaScript formatter', () => {
       'Cannot process an empty step'
     );
   });
+
+  it('counts pages that cross steps', () => {
+    const generator = new SyntheticsGenerator(false);
+    const steps: Steps = [
+      {
+        actions: [
+          {
+            frame: {
+              pageAlias: 'page',
+              isMainFrame: true,
+              url: 'https://vigneshh.in/',
+            },
+            committed: true,
+            action: {
+              name: 'navigate',
+              url: 'https://vigneshh.in/',
+              signals: [],
+            },
+            title: 'Go to https://vigneshh.in/',
+          },
+          {
+            frame: {
+              pageAlias: 'page',
+              isMainFrame: true,
+              url: 'https://vigneshh.in/',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:role=link[name="Tailor"i]',
+              signals: [
+                {
+                  name: 'popup',
+                  popupAlias: 'page1',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/zalando/tailor',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/zalando/tailor',
+                },
+              ],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:role=link[name="Tailor"i]',
+          },
+          {
+            frame: {
+              pageAlias: 'page1',
+              isMainFrame: true,
+              url: 'https://github.com/zalando/tailor',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:role=link[name="Packages"i]',
+              signals: [
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/zalando/tailor',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                },
+              ],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:role=link[name="Packages"i]',
+          },
+        ],
+      },
+      {
+        actions: [
+          {
+            frame: {
+              pageAlias: 'page1',
+              isMainFrame: true,
+              url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:role=link[name="Repositories"i]',
+              signals: [
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/repositories',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/repositories',
+                },
+              ],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:role=link[name="Repositories"i]',
+          },
+          {
+            frame: {
+              pageAlias: 'page1',
+              isMainFrame: true,
+              url: 'https://github.com/orgs/zalando/repositories',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:attr=[placeholder="Find a repository…"i]',
+              signals: [],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:attr=[placeholder="Find a repository…"i]',
+          },
+          {
+            frame: {
+              pageAlias: 'page1',
+              isMainFrame: true,
+              url: 'https://github.com/orgs/zalando/repositories',
+            },
+            action: {
+              name: 'fill',
+              selector: 'internal:attr=[placeholder="Find a repository…"i]',
+              signals: [
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/repositories?q=tailor&type=all&language=&sort=',
+                },
+              ],
+              text: 'tailor',
+            },
+            committed: true,
+            title: 'Fill internal:attr=[placeholder="Find a repository…"i]',
+          },
+          {
+            frame: {
+              pageAlias: 'page1',
+              isMainFrame: true,
+              url: 'https://github.com/orgs/zalando/repositories?q=tailor&type=all&language=&sort=',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:role=link[name="tailor"i]',
+              signals: [
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/orgs/zalando/repositories?q=tailor&type=all&language=&sort=',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/zalando/tailor',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/zalando/tailor',
+                },
+              ],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:role=link[name="tailor"i]',
+          },
+        ],
+      },
+      {
+        actions: [
+          {
+            frame: {
+              pageAlias: 'page',
+              isMainFrame: true,
+              url: 'https://vigneshh.in/',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:role=link[name="Babel Minify"i]',
+              signals: [
+                {
+                  name: 'popup',
+                  popupAlias: 'page2',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/babel/minify',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/babel/minify',
+                },
+              ],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:role=link[name="Babel Minify"i]',
+          },
+          {
+            frame: {
+              pageAlias: 'page2',
+              isMainFrame: true,
+              url: 'https://github.com/babel/minify',
+            },
+            action: {
+              name: 'click',
+              selector: 'internal:attr=[title="Topic: babel-minify"i]',
+              signals: [
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/babel/minify',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/babel/minify',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/topics/babel-minify',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/topics/babel-minify',
+                },
+                {
+                  name: 'navigation',
+                  url: 'https://github.com/topics/babel-minify',
+                },
+              ],
+              button: 'left',
+              modifiers: 0,
+              clickCount: 1,
+            },
+            committed: true,
+            title: 'Click internal:attr=[title="Topic: babel-minify"i]',
+          },
+        ],
+      },
+      {
+        actions: [
+          {
+            frame: {
+              pageAlias: 'page2',
+              isMainFrame: true,
+              url: 'https://github.com/topics/babel-minify',
+            },
+            committed: true,
+            action: {
+              name: 'closePage',
+              signals: [],
+            },
+            title: 'Close page',
+          },
+        ],
+      },
+      {
+        actions: [
+          {
+            frame: {
+              pageAlias: 'page1',
+              isMainFrame: true,
+              url: 'https://github.com/zalando/tailor',
+            },
+            committed: true,
+            action: {
+              name: 'closePage',
+              signals: [],
+            },
+            title: 'Close page',
+          },
+        ],
+      },
+    ];
+    expect(generator.findVarsToHoist(steps)).toEqual(['page1', 'page2']);
+  });
+
+  it('does not hoist when all accesses are in one step', () => {
+    expect(
+      new SyntheticsGenerator(false).generateFromSteps([
+        {
+          actions: [
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              committed: true,
+              action: {
+                name: 'navigate',
+                url: 'https://vigneshh.in/',
+                signals: [],
+              },
+              title: 'Go to https://vigneshh.in/',
+            },
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'click',
+                selector: 'internal:role=link[name="Tailor"i]',
+                signals: [
+                  {
+                    name: 'popup',
+                    popupAlias: 'page1',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/zalando/tailor',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/zalando/tailor',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+              committed: true,
+              title: 'Click internal:role=link[name="Tailor"i]',
+            },
+            {
+              frame: {
+                pageAlias: 'page1',
+                isMainFrame: true,
+                url: 'https://github.com/zalando/tailor',
+              },
+              action: {
+                name: 'click',
+                selector: 'internal:role=link[name="Packages"i]',
+                signals: [
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/zalando/tailor',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+              committed: true,
+              title: 'Click internal:role=link[name="Packages"i]',
+            },
+            {
+              frame: {
+                pageAlias: 'page1',
+                isMainFrame: true,
+                url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+              },
+              action: {
+                name: 'click',
+                selector: 'internal:role=link[name="@zalando Zalando SE"i]',
+                signals: [
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/zalando',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/zalando',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+              committed: true,
+              title: 'Click internal:role=link[name="@zalando Zalando SE"i]',
+            },
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'click',
+                selector: 'internal:role=link[name="Babel Minify"i]',
+                signals: [
+                  {
+                    name: 'popup',
+                    popupAlias: 'page2',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/babel/minify',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/babel/minify',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+              committed: true,
+              title: 'Click internal:role=link[name="Babel Minify"i]',
+            },
+            {
+              frame: {
+                pageAlias: 'page2',
+                isMainFrame: true,
+                url: 'https://github.com/babel/minify',
+              },
+              action: {
+                name: 'click',
+                selector: 'internal:attr=[title="Topic: babel-minify"i]',
+                signals: [
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/babel/minify',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/babel/minify',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/topics/babel-minify',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/topics/babel-minify',
+                  },
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/topics/babel-minify',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+              committed: true,
+              title: 'Click internal:attr=[title="Topic: babel-minify"i]',
+            },
+            {
+              frame: {
+                pageAlias: 'page2',
+                isMainFrame: true,
+                url: 'https://github.com/topics/babel-minify',
+              },
+              committed: true,
+              action: {
+                name: 'closePage',
+                signals: [],
+              },
+              title: 'Close page',
+            },
+            {
+              frame: {
+                pageAlias: 'page1',
+                isMainFrame: true,
+                url: 'https://github.com/zalando',
+              },
+              committed: true,
+              action: {
+                name: 'closePage',
+                signals: [],
+              },
+              title: 'Close page',
+            },
+          ],
+        },
+      ])
+    ).toMatchSnapshot();
+  });
+
+  it('hoist accounts for popup alias', () => {
+    expect(
+      new SyntheticsGenerator(false).generateFromSteps([
+        {
+          actions: [
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'navigate',
+                url: 'https://vigneshh.in/',
+                signals: [],
+              },
+            },
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'click',
+                selector: 'text=Tailor',
+                signals: [
+                  { name: 'popup', popupAlias: 'page1', isAsync: true },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+            {
+              frame: {
+                url: 'https://github.com/zalando/tailor',
+                pageAlias: 'page1',
+              },
+              action: {
+                name: 'click',
+                selector: 'text=Packages 0',
+                signals: [
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              frame: {
+                pageAlias: 'page1',
+                url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                isMainFrame: true,
+              },
+              action: { name: 'closePage', signals: [] },
+            },
+
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'click',
+                selector: 'text=Babel Minify',
+                signals: [
+                  { name: 'popup', popupAlias: 'page2', isAsync: true },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              frame: {
+                url: 'https://github.com/babel/minify',
+                pageAlias: 'page2',
+              },
+              action: { name: 'closePage', signals: [] },
+            },
+          ],
+        },
+      ])
+    ).toMatchSnapshot();
+  });
+
+  it('hoists page objects to prevent undefined references', () => {
+    expect(
+      new SyntheticsGenerator(false).generateFromSteps([
+        {
+          actions: [
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'navigate',
+                url: 'https://vigneshh.in/',
+                signals: [],
+              },
+            },
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'click',
+                selector: 'text=Tailor',
+                signals: [
+                  { name: 'popup', popupAlias: 'page1', isAsync: true },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+            {
+              frame: {
+                pageAlias: 'page1',
+                isMainFrame: true,
+                url: 'https://github.com/zalando/tailor',
+              },
+              action: {
+                name: 'click',
+                selector: 'text=Packages 0',
+                signals: [
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              frame: {
+                pageAlias: 'page1',
+                isMainFrame: true,
+                url: 'https://github.com/orgs/zalando/packages?repo_name=tailor',
+              },
+              action: { name: 'closePage', signals: [] },
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              frame: {
+                pageAlias: 'page',
+                isMainFrame: true,
+                url: 'https://vigneshh.in/',
+              },
+              action: {
+                name: 'click',
+                selector: 'text=Babel Minify',
+                signals: [
+                  { name: 'popup', popupAlias: 'page2', isAsync: true },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+            {
+              frame: {
+                pageAlias: 'page2',
+                isMainFrame: true,
+                url: 'https://github.com/babel/minify',
+              },
+              action: {
+                name: 'click',
+                selector: ':nth-match(a:has-text("babel-minify"), 3)',
+                signals: [
+                  {
+                    name: 'navigation',
+                    url: 'https://github.com/topics/babel-minify',
+                  },
+                ],
+                button: 'left',
+                modifiers: 0,
+                clickCount: 1,
+              },
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              frame: {
+                url: 'https://github.com/topics/babel-minify',
+                pageAlias: 'page2',
+              },
+              action: { name: 'closePage', signals: [] },
+            },
+          ],
+        },
+      ])
+    ).toMatchSnapshot();
+  });
 });
