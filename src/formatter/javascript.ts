@@ -32,9 +32,9 @@ export type Step = {
   actions: ActionInContext[];
   name?: string;
 };
-
 export type Steps = Step[];
-// // from playwright-core
+
+// from playwright-core
 export type FrameDescription = {
   pageAlias: string;
   isMainFrame?: boolean;
@@ -42,11 +42,9 @@ export type FrameDescription = {
   name?: string;
   selectorsChain?: string[];
 };
+
 export type ActionInContext = {
-  pageAlias: string;
   frameName?: string;
-  frameUrl: string;
-  isMainFrame: boolean;
   action: Action;
   committed?: boolean;
   modified?: boolean;

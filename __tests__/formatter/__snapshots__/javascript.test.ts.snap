@@ -4,6 +4,7 @@ exports[`Synthetics JavaScript formatter accepts custom step organization 1`] = 
 "const { journey, step, expect } = require('@elastic/synthetics');
 
 journey('Recorded journey', async ({ page, context }) => {
+  let page1;
   step('Open new page', async () => {
     await page.goto('https://vigneshh.in/');
   });
@@ -13,14 +14,10 @@ journey('Recorded journey', async ({ page, context }) => {
   });
   step('Assert text=Babel Minify textContent', async () => {
     expect(await page.textContent('text=Babel Minify')).toMatch('Babel');
-    const [page1] = await Promise.all([
-      page.waitForEvent('popup'),
-      page.locator('text=Babel Minify').click()
-    ]);
-    await Promise.all([
-      page1.waitForNavigation(/*{ url: 'https://github.com/babel/minify' }*/),
-      page1.locator('a:has-text(\\"smoke\\")').click()
-    ]);
+    const page1Promise = page.waitForEvent('popup');
+    await page.locator('text=Babel Minify').click();
+    page1 = await page1Promise;
+    await page1.locator('a:has-text(\\"smoke\\")').click();
   });
   step('Close page', async () => {
     await page1.close();
